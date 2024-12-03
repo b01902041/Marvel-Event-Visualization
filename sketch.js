@@ -128,7 +128,9 @@ function processVisualization() {
     events.forEach(event => {
         if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
             let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
+            console.log('Original URL:', originalUrl);
             imageUrl = imageUrl.replace('http://', 'https://');
+            console.log('Converted URL:', imageUrl);
             eventImages[event.id] = loadImage(imageUrl);
         }
     });
