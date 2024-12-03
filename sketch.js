@@ -122,45 +122,47 @@ async function fetchEventCharacters(eventId, eventTitle) {
 }
 
 // 處理視覺化相關的事情
-// function processVisualization() {
-//     console.log('Processing visualization...');
-//     // 載入圖片
-//     events.forEach(event => {
-//         if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
-//             const imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
-//             eventImages[event.id] = loadImage(imageUrl);
-//         }
-//     });
-    
-//     // 創建節點和連結
-//     createNodesAndLinks();
-//     dataLoaded = true;
-// }
 function processVisualization() {
-  console.log('Processing visualization...');
-  events.forEach(event => {
-      if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
-          // 確保使用 HTTPS URL
-          let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
-          imageUrl = imageUrl.replace('http://', 'https://');
-          imageUrl = imageUrl.replace('i.annihil.us', 'gateway.marvel.com');
-          imageUrl = `${imageUrl}?apikey=${PUBLIC_KEY}`;
-          
-          loadImage(imageUrl, 
-              img => {
-                  eventImages[event.id] = img;
-                  console.log('Image loaded successfully:', event.id);
-              },
-              err => {
-                  console.error('Failed to load image:', event.id, err);
-              }
-          );
-      }
-  });
-  
-  createNodesAndLinks();
-  dataLoaded = true;
+    console.log('Processing visualization...');
+    // 載入圖片
+    events.forEach(event => {
+        if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
+            let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
+            imageUrl = imageUrl.replace('http://', 'https://');
+            eventImages[event.id] = loadImage(imageUrl);
+        }
+    });
+    
+    // 創建節點和連結
+    createNodesAndLinks();
+    dataLoaded = true;
 }
+
+// function processVisualization() {
+//   console.log('Processing visualization...');
+//   events.forEach(event => {
+//       if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
+//           // 確保使用 HTTPS URL
+//           let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
+//           imageUrl = imageUrl.replace('http://', 'https://');
+//           imageUrl = imageUrl.replace('i.annihil.us', 'gateway.marvel.com');
+//           imageUrl = `${imageUrl}?apikey=${PUBLIC_KEY}`;
+          
+//           loadImage(imageUrl, 
+//               img => {
+//                   eventImages[event.id] = img;
+//                   console.log('Image loaded successfully:', event.id);
+//               },
+//               err => {
+//                   console.error('Failed to load image:', event.id, err);
+//               }
+//           );
+//       }
+//   });
+  
+//   createNodesAndLinks();
+//   dataLoaded = true;
+// }
 
 // 以下是視覺化相關的函數，保持不變
 function createNodesAndLinks() {
