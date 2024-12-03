@@ -122,19 +122,38 @@ async function fetchEventCharacters(eventId, eventTitle) {
 }
 
 // 處理視覺化相關的事情
-function processVisualization() {
-    console.log('Processing visualization...');
-    // 載入圖片
-    events.forEach(event => {
-        if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
-            const imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
-            eventImages[event.id] = loadImage(imageUrl);
-        }
-    });
+// function processVisualization() {
+//     console.log('Processing visualization...');
+//     // 載入圖片
+//     events.forEach(event => {
+//         if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
+//             const imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
+//             eventImages[event.id] = loadImage(imageUrl);
+//         }
+//     });
     
-    // 創建節點和連結
-    createNodesAndLinks();
-    dataLoaded = true;
+//     // 創建節點和連結
+//     createNodesAndLinks();
+//     dataLoaded = true;
+// }
+function processVisualization() {
+  console.log('Processing visualization...');
+  // 載入圖片
+  events.forEach(event => {
+      if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
+          // 確保使用 HTTPS URL
+          let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
+          // 將 http:// 替換為 https://
+          if (imageUrl.startsWith('http:')) {
+              imageUrl = imageUrl.replace('http:', 'https:');
+          }
+          eventImages[event.id] = loadImage(imageUrl);
+      }
+  });
+  
+  // 創建節點和連結
+  createNodesAndLinks();
+  dataLoaded = true;
 }
 
 // 以下是視覺化相關的函數，保持不變
