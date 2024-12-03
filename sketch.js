@@ -140,7 +140,9 @@ function processVisualization() {
   console.log('Processing visualization...');
   events.forEach(event => {
       if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
+          // 確保使用 HTTPS URL
           let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
+          imageUrl = imageUrl.replace('http://', 'https://');
           imageUrl = imageUrl.replace('i.annihil.us', 'gateway.marvel.com');
           imageUrl = `${imageUrl}?apikey=${PUBLIC_KEY}`;
           
