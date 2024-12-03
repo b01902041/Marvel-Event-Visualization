@@ -138,20 +138,27 @@ async function fetchEventCharacters(eventId, eventTitle) {
 // }
 function processVisualization() {
   console.log('Processing visualization...');
-  // 載入圖片
   events.forEach(event => {
       if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
-          // 確保使用 HTTPS URL
           let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
-          // 將 http:// 替換為 https://
           if (imageUrl.startsWith('http:')) {
               imageUrl = imageUrl.replace('http:', 'https:');
           }
-          eventImages[event.id] = loadImage(imageUrl);
+          // 使用 CORS proxy
+          const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(imageUrl)}`;
+          
+          loadImage(proxyUrl, 
+              img => {
+                  eventImages[event.id] = img;
+                  console.log('Image loaded successfully:', event.id);
+              },
+              err => {
+                  console.error('Failed to load image:', event.id, err);
+              }
+          );
       }
   });
   
-  // 創建節點和連結
   createNodesAndLinks();
   dataLoaded = true;
 }
