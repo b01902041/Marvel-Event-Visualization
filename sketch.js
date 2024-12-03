@@ -141,13 +141,10 @@ function processVisualization() {
   events.forEach(event => {
       if (event.thumbnail && event.thumbnail.path && event.thumbnail.extension) {
           let imageUrl = `${event.thumbnail.path}.${event.thumbnail.extension}`;
-          if (imageUrl.startsWith('http:')) {
-              imageUrl = imageUrl.replace('http:', 'https:');
-          }
-          // 使用 CORS proxy
-          const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(imageUrl)}`;
+          imageUrl = imageUrl.replace('i.annihil.us', 'gateway.marvel.com');
+          imageUrl = `${imageUrl}?apikey=${PUBLIC_KEY}`;
           
-          loadImage(proxyUrl, 
+          loadImage(imageUrl, 
               img => {
                   eventImages[event.id] = img;
                   console.log('Image loaded successfully:', event.id);
