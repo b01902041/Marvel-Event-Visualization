@@ -27,9 +27,16 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(800, 600, WEBGL);
+    createCanvas(windowWidth, windowHeight, WEBGL);
     textFont(myFont);
     noStroke();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  if(dataLoaded) {
+      createNodesAndLinks();
+  }
 }
 
 // 處理快取檔案存在的情況
