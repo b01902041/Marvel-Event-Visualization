@@ -26,8 +26,8 @@ let noiseOffset = 0;
 let noiseStep = 0.005;
 let myFont;
 
-let songs = [];
-let currentSongIndex = 0;
+// let songs = [];
+// let currentSongIndex = 0;
 
 function preload() {
   myFont = loadFont('./asset/Arial.ttf');
@@ -36,8 +36,8 @@ function preload() {
     handleCachedData, // existed
     handleNoCacheData  // not existed
   );
-  songs[0] = loadSound('./music/Galactic Rap.mp3');
-  songs[1] = loadSound('./music/Mesmerizing Galaxy Loop.mp3');
+  // songs[0] = loadSound('./music/Galactic Rap.mp3');
+  // songs[1] = loadSound('./music/Mesmerizing Galaxy Loop.mp3');
 }
 
 function handleCachedData(data) {
@@ -55,23 +55,23 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   textFont(myFont);
   noStroke();
-  songs[currentSongIndex].play();
+  // songs[currentSongIndex].play();
 
-  // Attempt to initialize audio context and start playback
-  userStartAudio().then(() => {
-    // Set up event listeners for each song: when a song ends, it will trigger the musicEnded function
-    for (let song of songs) {
-      song.onended(musicEnded);
-    }
-    songs[currentSongIndex].play();
-  });
+  // // Attempt to initialize audio context and start playback
+  // userStartAudio().then(() => {
+  //   // Set up event listeners for each song: when a song ends, it will trigger the musicEnded function
+  //   for (let song of songs) {
+  //     song.onended(musicEnded);
+  //   }
+  //   songs[currentSongIndex].play();
+  // });
   
 }
 
-function musicEnded() {
-  currentSongIndex = (currentSongIndex + 1) % songs.length;
-  songs[currentSongIndex].play();
-}
+// function musicEnded() {
+//   currentSongIndex = (currentSongIndex + 1) % songs.length;
+//   songs[currentSongIndex].play();
+// }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -291,9 +291,9 @@ function mouseDragged() {
   }
 }
 
-// Add mouse click event handler to start audio playback if autoplay fails
-function mousePressed() {
-  if (getAudioContext().state !== 'running') {
-    userStartAudio();
-  }
-}
+// // Add mouse click event handler to start audio playback if autoplay fails
+// function mousePressed() {
+//   if (getAudioContext().state !== 'running') {
+//     userStartAudio();
+//   }
+// }
