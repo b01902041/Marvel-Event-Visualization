@@ -223,9 +223,10 @@ function draw() {
 
   if (!dataLoaded) {
     push();
-    translate(-width/4, 0, 0);
+    translate(0, 0, 0);
     fill(255);
     textSize(20);
+    textAlign(CENTER, CENTER);
     text('Loading Marvel Events...', 0, 0);
     pop();
     return;
